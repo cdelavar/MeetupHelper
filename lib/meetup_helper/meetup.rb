@@ -59,7 +59,7 @@ class MeetupHelper::Meetup
     input = input.to_i - 1
     if @events_array[input].photo_album_id != nil
       @photo_id = @events_array[input].photo_album_id
-      MeetupHelper::ApiConnect.call_api_photos(params = {photo_album_id: @photo_id})
+      MeetupHelper::ApiCalls.call_api_photos(params = {photo_album_id: @photo_id})
     else
       puts "That event does not have a photo album." 
       self.get_pictures_from_event
