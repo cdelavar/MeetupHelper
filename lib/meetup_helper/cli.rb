@@ -14,10 +14,10 @@ class MeetupHelper::CLI
 
   def get_input
     input = nil
-    until input == "5"
+    until input == "6"
       puts ""
       options
-      puts "Please enter a number 1-5:"
+      puts "Please enter a number 1-6:"
       input = gets.strip.to_s
 
       case input
@@ -29,6 +29,8 @@ class MeetupHelper::CLI
         MeetupHelper::Meetup.delete_meetups
       when "4"
         MeetupHelper::Meetup.get_pictures_from_event
+      when "5"
+        MeetupHelper::Meetup.print_events
       end
     end
   end

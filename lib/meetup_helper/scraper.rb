@@ -1,9 +1,5 @@
 class MeetupHelper::Scraper
 
-  require 'meetup_client'
-  require 'mechanize'
-  require 'pry'
-
   def self.scrape_events
     MeetupHelper::ApiCalls.results[:results].each do |event|
       meetup = MeetupHelper::Meetup.new

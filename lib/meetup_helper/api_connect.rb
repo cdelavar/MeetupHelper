@@ -1,10 +1,5 @@
 class MeetupHelper::ApiConnect
 
-  require 'meetup_client'
-  require 'mechanize'
-  require 'pry'
-
-  
   def initialize
     url = 'https://secure.meetup.com/meetup_api/key/'
     @@api_key = MeetupHelper::SignIn.agent.get(url).css("#api-key-reveal").first.attribute("value").text

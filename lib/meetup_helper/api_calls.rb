@@ -1,9 +1,5 @@
 class MeetupHelper::ApiCalls
 
-  require 'meetup_client'
-  require 'mechanize'
-  require 'pry'
-
   def self.call_api_events(params = nil) 
     meetup_api = MeetupApi.new
     events = meetup_api.events(params)

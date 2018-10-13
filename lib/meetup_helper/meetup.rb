@@ -12,15 +12,17 @@ class MeetupHelper::Meetup
     @@all
   end
 
-  def self.reset_all
-    @@all.clear
-  end
-
   def self.find_events_by_group_name
+    puts ""
     puts "Type the name of the meetup group you'd like to find past events for:"
     input = gets.strip
     @events_array = MeetupHelper::Meetup.all.find_all {|meetup| meetup.group_name.include?(input)}
-    self.print_events_by_group_name
+    if @events_array.empty?
+      puts "Cannot find that group name. Please try again."
+      self.find_events_by_group_name
+    else
+      self.print_events_by_group_name
+    end
   end
 
   def self.print_events_by_group_name
@@ -39,6 +41,24 @@ class MeetupHelper::Meetup
   def self.list_groups
     group_array = MeetupHelper::Meetup.all.collect {|meetup| meetup.group_name}.uniq
     group_array.each_with_index {|value, index| puts "#{index+1}. #{value}"}
+  end
+
+  def self.print_events
+    MeetupHelper::Meetup.all.each_with_index do |meetup, index|
+      puts ""
+      puts "#{index+1}."
+      puts "Group name: #{meetup.group_name}"
+      puts "Event name: #{meetup.event_name}"
+      puts "Date: #{meetup.date}"
+      if meetup.venue != nil
+        puts "Location: #{meetup.venue[:name]}" 
+        puts "Address: #{meetup.venue[:address_1]}"
+      else
+        puts "Location: none listed"
+        puts "Address: none listed"
+      end
+      puts ""
+    end
   end
 
   def self.delete_meetups

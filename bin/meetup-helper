@@ -5,5 +5,7 @@ require "meetup_helper"
 require "open-uri"
 require "io/console"
 require "JSON"
+require 'meetup_client'
+require 'mechanize'
 
 MeetupHelper::CLI.new.call
