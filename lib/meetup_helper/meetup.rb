@@ -1,6 +1,6 @@
 class MeetupHelper::Meetup
 
-  attr_accessor :event_name, :group_id, :group_name, :event_id, :date, :venue, :yes_rsvps
+  attr_accessor :event_name, :group_id, :group_name, :event_id, :date, :venue, :yes_rsvps, :photo_album_id
 
   @@all = []
 
@@ -52,14 +52,18 @@ class MeetupHelper::Meetup
   end
 
 
-  def self.get_event_id
+  def self.get_pictures_from_event
     self.find_events_by_group_name
     puts "Enter the number of the event you'd like to get pictures from:"
     input = gets.strip
     input = input.to_i - 1
-    @id = @events_array[input].event_id
-    binding.pry
-    #Meetup.all[0].group_info[:id]
+    if @events_array[input].photo_album_id != nil
+      @photo_id = @events_array[input].photo_album_id
+      MeetupHelper::ApiConnect.call_api_photos(params = {photo_album_id: @photo_id})
+    else
+      puts "That event does not have a photo album." 
+      self.get_pictures_from_event
+    end
   end
 
 end
