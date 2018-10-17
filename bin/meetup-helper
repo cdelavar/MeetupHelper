@@ -8,4 +8,5 @@ require "JSON"
 require 'meetup_client'
 require 'mechanize'
 
+
 MeetupHelper::CLI.new.call

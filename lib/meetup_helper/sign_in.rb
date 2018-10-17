@@ -1,10 +1,7 @@
 class MeetupHelper::SignIn
-  
-  def initialize
-    @@agent = Mechanize.new
-  end
 
-  def sign_in
+  def self.sign_in
+    @@agent = Mechanize.new
     page = @@agent.get('https://secure.meetup.com/login/')
     sign_in = page.forms[1]
     puts "Sign in to Meetup.com"
@@ -12,7 +9,7 @@ class MeetupHelper::SignIn
     sign_in.email = gets.chomp
     puts "Password: "
     sign_in.password = STDIN.noecho(&:gets).chomp
-    @page = @@agent.submit(sign_in)
+    page = @@agent.submit(sign_in)
   end
 
   def self.agent

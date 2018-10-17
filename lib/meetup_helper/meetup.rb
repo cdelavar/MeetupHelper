@@ -12,6 +12,10 @@ class MeetupHelper::Meetup
     @@all
   end
 
+  def self.count
+    puts "You have attended #{self.all.count} meetup events."
+  end
+
   def self.find_events_by_group_name
     puts ""
     puts "Type the name of the meetup group you'd like to find past events for:"
@@ -21,20 +25,7 @@ class MeetupHelper::Meetup
       puts "Cannot find that group name. Please try again."
       self.find_events_by_group_name
     else
-      self.print_events_by_group_name
-    end
-  end
-
-  def self.print_events_by_group_name
-    @events_array.each_with_index do |meetup, index|
-      puts ""
-      puts "Group name: #{meetup.group_name}" if index == 0
-      puts "#{index+1}:"
-      puts "Event name: #{meetup.event_name}"
-      puts "Date: #{meetup.date}"
-      puts "Location: #{meetup.venue[:name]}"
-      puts "Address: #{meetup.venue[:address_1]}"
-      puts ""
+      self.print_events(@events_array)
     end
   end
 
@@ -43,8 +34,8 @@ class MeetupHelper::Meetup
     group_array.each_with_index {|value, index| puts "#{index+1}. #{value}"}
   end
 
-  def self.print_events
-    MeetupHelper::Meetup.all.each_with_index do |meetup, index|
+  def self.print_events(array)
+    array.each_with_index do |meetup, index|
       puts ""
       puts "#{index+1}."
       puts "Group name: #{meetup.group_name}"
@@ -68,7 +59,7 @@ class MeetupHelper::Meetup
     input = input.to_i - 1
     @@all.delete_if {|meetup| meetup.event_id == @events_array[input].event_id}
     @events_array.delete_at(input)
-    self.print_events_by_group_name
+    self.print_events(@events_array)
   end
 
 
@@ -78,8 +69,8 @@ class MeetupHelper::Meetup
     input = gets.strip
     input = input.to_i - 1
     if @events_array[input].photo_album_id != nil
-      @photo_id = @events_array[input].photo_album_id
-      MeetupHelper::ApiCalls.call_api_photos(params = {photo_album_id: @photo_id})
+      photo_id = @events_array[input].photo_album_id
+      MeetupHelper::ApiCalls.call_api_photos(params = {photo_album_id: photo_id})
     else
       puts "That event does not have a photo album." 
       self.get_pictures_from_event

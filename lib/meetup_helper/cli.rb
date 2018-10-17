@@ -2,8 +2,8 @@ class MeetupHelper::CLI
 
   def call
     puts "Welcome to Meetup Helper!"
-    MeetupHelper::SignIn.new.sign_in
-    MeetupHelper::ApiConnect.new.connect_to_meetup_api
+    MeetupHelper::SignIn.sign_in
+    MeetupHelper::ApiConnect.connect_to_meetup_api
     MeetupHelper::ApiCalls.call_api_events(params = {rsvp: 'yes', member_id: MeetupHelper::ApiConnect.member_id, status: 'past', fields: "photo_album_id"})
     get_input
   end
@@ -14,11 +14,11 @@ class MeetupHelper::CLI
 
   def get_input
     input = nil
-    until input == "6"
+    until input == "7"
       puts ""
       options
-      puts "Please enter a number 1-6:"
-      input = gets.strip.to_s
+      puts "Please enter a number 1-7:"
+      input = gets.strip
 
       case input
       when "1"
@@ -30,7 +30,9 @@ class MeetupHelper::CLI
       when "4"
         MeetupHelper::Meetup.get_pictures_from_event
       when "5"
-        MeetupHelper::Meetup.print_events
+        MeetupHelper::Meetup.print_events(MeetupHelper::Meetup.all)
+      when "6"
+        MeetupHelper::Meetup.count
       end
     end
   end

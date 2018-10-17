@@ -7,7 +7,8 @@ class MeetupHelper::Options
       3. Delete meetups not attended
       4. Get pictures from meetups
       5. List all meetups attended
-      6. Exit
+      6. How many meetups you've attended
+      7. Exit
     DOC
   end
 end
