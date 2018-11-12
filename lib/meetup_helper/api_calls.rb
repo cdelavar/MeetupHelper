@@ -1,17 +1,19 @@
 class MeetupHelper::ApiCalls
 
-  def self.call_api_events(params = nil) 
-    meetup_api = MeetupApi.new
-    events = meetup_api.events(params)
+  def initialize
+    @meetup_api = MeetupApi.new
+  end
+
+  def call_api_events(params = nil) 
+    events = @meetup_api.events(params)
     @@results = JSON.parse(events.to_json, {:symbolize_names => true} )
-    MeetupHelper::Scraper.scrape_events
+    MeetupHelper::Parser.parse_events
   end 
 
-  def self.call_api_photos(params = nil)
-    meetup_api = MeetupApi.new
-    photos = meetup_api.photos(params)
+  def call_api_photos(params = nil)
+    photos = @meetup_api.photos(params)
     @@results = JSON.parse(photos.to_json, {:symbolize_names => true} )
-    MeetupHelper::Scraper.scrape_photos
+    MeetupHelper::Parser.parse_photos
   end
 
   def self.results

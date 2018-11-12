@@ -4,7 +4,7 @@ class MeetupHelper::CLI
     puts "Welcome to Meetup Helper!"
     MeetupHelper::SignIn.sign_in
     MeetupHelper::ApiConnect.connect_to_meetup_api
-    MeetupHelper::ApiCalls.call_api_events(params = {rsvp: 'yes', member_id: MeetupHelper::ApiConnect.member_id, status: 'past', fields: "photo_album_id"})
+    MeetupHelper::ApiCalls.new.call_api_events(params = {rsvp: 'yes', member_id: MeetupHelper::ApiConnect.member_id, status: 'past', fields: "photo_album_id"})
     get_input
   end
 

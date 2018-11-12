@@ -1,6 +1,6 @@
-class MeetupHelper::Scraper
+class MeetupHelper::Parser
 
-  def self.scrape_events
+  def self.parse_events
     MeetupHelper::ApiCalls.results[:results].each do |event|
       meetup = MeetupHelper::Meetup.new
       meetup.event_name = event[:name]
@@ -16,7 +16,7 @@ class MeetupHelper::Scraper
   end
 
 
-def self.scrape_photos
+def self.parse_photos
     photos = MeetupHelper::ApiCalls.results[:results].collect { |photo| photo[:highres_link]}
     agent = Mechanize.new
     agent.pluggable_parser.default = Mechanize::Download
