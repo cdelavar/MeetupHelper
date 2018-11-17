@@ -14,6 +14,8 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Find past meetups attended and download pictures from events}
   spec.homepage      = "https://github.com/jinjo39/MeetupHelper"
   spec.license       = "MIT"
+  
+
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -30,9 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.11"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "mechanize"
-  spec.add_development_dependency "meetup_client"
-  
+  spec.add_development_dependency 'mechanize', '~> 2.7', '>= 2.7.6'
+  spec.add_development_dependency 'meetup_client', '~> 1.0'
+  spec.add_development_dependency 'pry'
 
-  
 end
