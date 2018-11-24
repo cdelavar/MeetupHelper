@@ -32,7 +32,7 @@ class MeetupHelper::Meetup
 
   
   def self.find_by_name(name)
-    self.all.find_all {|meetup| meetup.group_name.include?(name)}
+    self.all.find_all {|meetup| meetup.group_name.downcase.include?(name)}
   end
 
   
@@ -45,7 +45,7 @@ class MeetupHelper::Meetup
   def self.get_input_group_name
     puts ""
     puts "Type the name of the meetup group you'd like to find past events for:"
-    gets.strip
+    gets.strip.downcase
   end
   
   
