@@ -7,4 +7,12 @@ require_relative "./meetup_helper/api_connect"
 require_relative "./meetup_helper/parser"
 require_relative "./meetup_helper/api_calls"
 
+require "bundler/setup"
+require "open-uri"
+require "io/console"
+require "JSON"
+require 'meetup_client'
+require 'mechanize'
+require 'pry'
+
 

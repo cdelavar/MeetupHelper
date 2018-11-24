@@ -1,13 +1,6 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "meetup_helper"
-require "open-uri"
-require "io/console"
-require "JSON"
-require 'meetup_client'
-require 'mechanize'
-require 'pry'
+require './lib/meetup_helper'
 
 
 MeetupHelper::CLI.new.call

@@ -5,7 +5,7 @@ Meetup Helper is a ruby CLI that grabs event history from the meetup.com API.It 
 
 ## Installation
 
-Clone the repo then cd into meetup_helper. Run bundle install, then type 
+Clone the repo then cd into MeetupHelper. Run bundle install, then type 
 ./bin/meetup-helper to start the program.
 
 

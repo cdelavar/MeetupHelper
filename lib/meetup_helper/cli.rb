@@ -9,7 +9,7 @@ class MeetupHelper::CLI
   end
 
   def options
-    @options = MeetupHelper::Options.list_options
+    MeetupHelper::Options.list_options
   end
 
   def get_input
