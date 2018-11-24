@@ -16,6 +16,7 @@ class MeetupHelper::Meetup
     puts "You have attended #{self.all.count} meetup events since #{self.all[0].date.to_s.split(/ /)[0]}."
   end
 
+  
   def self.find_events_by_group_name
     input = self.get_input_group_name
     events_array = self.find_by_name(input)
@@ -24,55 +25,42 @@ class MeetupHelper::Meetup
       puts "Cannot find that group name. Please try again."
       self.find_events_by_group_name
     else
-      self.print_events(events_array)
+      MeetupHelper::CLI.print_events(events_array)
     end
     events_array
   end
 
+  
   def self.find_by_name(name)
     self.all.find_all {|meetup| meetup.group_name.include?(name)}
   end
 
+  
   def self.list_groups
     group_array = self.all.collect {|meetup| meetup.group_name}.uniq
     group_array.each_with_index {|value, index| puts "#{index+1}. #{value}"}
   end
 
-  def self.print_events(array)
-    array.each_with_index do |meetup, index|
-      puts ""
-      puts "#{index+1}."
-      puts "Group name: #{meetup.group_name}"
-      puts "Event name: #{meetup.event_name}"
-      puts "Date: #{meetup.date}"
-      if meetup.venue != nil
-        puts "Location: #{meetup.venue[:name]}" 
-        puts "Address: #{meetup.venue[:address_1]}"
-      else
-        puts "Location: none listed"
-        puts "Address: none listed"
-      end
-      puts ""
-    end
-  end
-
+  
   def self.get_input_group_name
     puts ""
     puts "Type the name of the meetup group you'd like to find past events for:"
     gets.strip
   end
   
+  
   def self.get_input_int
     gets.strip.to_i - 1
   end
 
+  
   def self.delete_meetups
     events_array = self.find_events_by_group_name
     puts "Enter the number of the event you did not actually attend and would like to delete:"
     input = self.get_input_int
     @@all.delete_if {|meetup| meetup.event_id == events_array[input].event_id}
     events_array.delete_at(input)
-    self.print_events(events_array)
+    MeetupHelper::CLI.print_events(events_array)
   end
 
 

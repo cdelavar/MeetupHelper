@@ -37,4 +37,22 @@ class MeetupHelper::CLI
     end
   end
 
+  def self.print_events(array)
+    array.each_with_index do |meetup, index|
+      puts ""
+      puts "#{index+1}."
+      puts "Group name: #{meetup.group_name}"
+      puts "Event name: #{meetup.event_name}"
+      puts "Date: #{meetup.date}"
+      if meetup.venue != nil
+        puts "Location: #{meetup.venue[:name]}" 
+        puts "Address: #{meetup.venue[:address_1]}"
+      else
+        puts "Location: none listed"
+        puts "Address: none listed"
+      end
+      puts ""
+    end
+  end
+
 end
