@@ -22,22 +22,26 @@ class MeetupHelper::CLI
 
       case input
       when "1"
-        MeetupHelper::Meetup.list_groups
+        list_groups
       when "2"
-        MeetupHelper::Meetup.find_events_by_group_name
+        find_events_by_group_name
       when "3"
-        MeetupHelper::Meetup.delete_meetups
+        delete_meetups
       when "4"
-        MeetupHelper::Meetup.get_pictures_from_event
+        get_pictures_from_event
       when "5"
-        MeetupHelper::Meetup.print_events(MeetupHelper::Meetup.all)
+        print_events(MeetupHelper::Meetup.all)
       when "6"
-        MeetupHelper::Meetup.count
+        count
       end
     end
   end
 
-  def self.print_events(array)
+  def count
+    puts "You have attended #{MeetupHelper::Meetup.all.count} meetup events since #{MeetupHelper::Meetup.all[0].date.to_s.split(/ /)[0]}."
+  end
+
+  def print_events(array)
     array.each_with_index do |meetup, index|
       puts ""
       puts "#{index+1}."
@@ -52,6 +56,59 @@ class MeetupHelper::CLI
         puts "Address: none listed"
       end
       puts ""
+    end
+  end
+
+  def list_groups
+    group_array = MeetupHelper::Meetup.all_unique
+    group_array.each_with_index {|value, index| puts "#{index+1}. #{value}"}
+  end
+
+  
+  def get_input_group_name
+    puts ""
+    puts "Type the name of the meetup group you'd like to find past events for:"
+    gets.strip.downcase
+  end
+  
+  
+  def get_input_int
+    gets.strip.to_i - 1
+  end
+
+  def list_events_by_group_name
+    input = get_input_group_name
+    events_array = MeetupHelper::Meetup.find_by_group_name(input)
+    
+    if events_array.empty?
+      puts "Cannot find that group name. Please try again."
+      list_events_by_group_name
+    else
+      print_events(events_array)
+    end
+  end
+
+  
+  def delete_meetups
+    events_array = list_events_by_group_name
+    puts "Enter the number of the event you did not actually attend and would like to delete:"
+    input = get_input_int
+    MeetupHelper::Meetup.all.delete_if {|meetup| meetup.event_id == events_array[input].event_id}
+    events_array.delete_at(input)
+    print_events(events_array)
+  end
+
+
+  def get_pictures_from_event
+    events_array = list_events_by_group_name
+    puts "Enter the number of the event you'd like to get pictures from:"
+    input = get_input_int
+    if events_array[input].photo_album_id != nil
+      photo_id = events_array[input].photo_album_id
+      MeetupHelper::ApiCalls.new.call_api_photos(params = {photo_album_id: photo_id})
+    else
+      puts "That event does not have a photo album." 
+      get_pictures_from_event
     end
   end
 
