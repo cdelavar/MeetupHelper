@@ -11,8 +11,6 @@ Clone the repo then cd into MeetupHelper. Run bundle install, then type
 
 ## Usage
 
-For more info on the cli, you can go here: http://christinadelavar.com/meetup_helper_cli_with_ruby
-
 
 ## Contributing
 
