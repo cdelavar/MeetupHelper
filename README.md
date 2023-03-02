@@ -14,7 +14,7 @@ Clone the repo then cd into MeetupHelper. Run bundle install, then type
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/jinjo39/meetup_helper.
+Bug reports and pull requests are welcome on GitHub at https://github.com/cdelavar/meetup_helper.
 
 
 ## License
